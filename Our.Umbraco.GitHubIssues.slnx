@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Our.Umbraco.GitHubIssues.Web/Our.Umbraco.GitHubIssues.Web.csproj" />
+  <Project Path="Our.Umbraco.GitHubIssues/Our.Umbraco.GitHubIssues.csproj" />
+</Solution>

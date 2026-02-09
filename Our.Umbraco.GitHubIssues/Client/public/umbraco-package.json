@@ -1,0 +1,14 @@
+{
+  "id": "Our.Umbraco.GitHubIssues",
+  "name": "Our.Umbraco.GitHubIssues",
+  "version": "0.0.0",
+  "allowTelemetry": true,
+  "extensions": [
+    {
+      "name": "Our Umbraco Git Hub Issues Bundle",
+      "alias": "Our.Umbraco.GitHubIssues.Bundle",
+      "type": "bundle",
+      "js": "/App_Plugins/OurUmbracoGitHubIssues/our-umbraco-git-hub-issues.js"
+    }
+  ]
+}
