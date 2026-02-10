@@ -1,12 +1,12 @@
 {
-  "name": "our-umbraco-git-hub-issues",
+  "name": "umbraco-prs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "watch": "tsc && vite build --watch",
     "build": "tsc && vite build",
-    "generate-client": "node scripts/generate-openapi.js https://localhost:5000/umbraco/swagger/ourumbracogithubissues/swagger.json"
+    "generate-client": "node scripts/generate-openapi.js https://localhost:5000/umbraco/swagger/umbracoprs/swagger.json"
   },
   "devDependencies": {
     "@hey-api/openapi-ts": "^0.85.0",
