@@ -1,35 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/umbraco-package.json",
-  "name": "GitHub Issues Package",
+  "name": "Umbraco GitHubIssues Package",
   "version": "1.0.0",
   "allowTelemetry": true,
+
   "extensions": [
     {
-      "type": "section",
-      "alias": "Our.Umbraco.GitHubIssues.Section",
-      "name": "GitHub Issues",
-      "weight": 100,
-      "meta": {
-        "label": "GitHub Issues",
-        "pathname": "github-issues"
-      }
-    },
-
-    {
       "type": "dashboard",
-      "alias": "Our.Umbraco.GitHubIssues.SectionDashboard",
-      "name": "GitHub Issues Dashboard",
+      "alias": "Our.Umbraco.GitHubIssues.Dashboard",
+      "name": "Umbraco GitHub Issues Dashboard",
       "element": "/App_Plugins/Our.Umbraco.GitHubIssues/dashboard.js",
       "weight": 10,
       "meta": {
-        "label": "Issues Dashboard",
-        "pathname": "dashboard",
-        "icon": "icon-lab"
+        "label": "GitHub Issues",
+        "icon": "icon-lab",
+        "elementName": "our-githubissues-dashboard"
       },
       "conditions": [
         {
           "alias": "Umb.Condition.SectionAlias",
-          "match": "Our.Umbraco.GitHubIssues.Section"
+          "match": "Umb.Section.Settings"
         }
       ]
     }

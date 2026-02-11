@@ -1,6 +1,6 @@
 import { UmbElementMixin as lt } from "@umbraco-cms/backoffice/element-api";
 import { UMB_AUTH_CONTEXT as ht } from "@umbraco-cms/backoffice/auth";
-const H = globalThis, j = H.ShadowRoot && (H.ShadyCSS === void 0 || H.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, L = /* @__PURE__ */ Symbol(), F = /* @__PURE__ */ new WeakMap();
+const M = globalThis, j = M.ShadowRoot && (M.ShadyCSS === void 0 || M.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, L = /* @__PURE__ */ Symbol(), W = /* @__PURE__ */ new WeakMap();
 let it = class {
   constructor(t, e, s) {
     if (this._$cssResult$ = !0, s !== L) throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");
@@ -11,7 +11,7 @@ let it = class {
     const e = this.t;
     if (j && t === void 0) {
       const s = e !== void 0 && e.length === 1;
-      s && (t = F.get(e)), t === void 0 && ((this.o = t = new CSSStyleSheet()).replaceSync(this.cssText), s && F.set(e, t));
+      s && (t = W.get(e)), t === void 0 && ((this.o = t = new CSSStyleSheet()).replaceSync(this.cssText), s && W.set(e, t));
     }
     return t;
   }
@@ -29,10 +29,10 @@ const ct = (i) => new it(typeof i == "string" ? i : i + "", void 0, L), ut = (i,
 }, dt = (i, t) => {
   if (j) i.adoptedStyleSheets = t.map((e) => e instanceof CSSStyleSheet ? e : e.styleSheet);
   else for (const e of t) {
-    const s = document.createElement("style"), r = H.litNonce;
+    const s = document.createElement("style"), r = M.litNonce;
     r !== void 0 && s.setAttribute("nonce", r), s.textContent = e.cssText, i.appendChild(s);
   }
-}, G = j ? (i) => i : (i) => i instanceof CSSStyleSheet ? ((t) => {
+}, F = j ? (i) => i : (i) => i instanceof CSSStyleSheet ? ((t) => {
   let e = "";
   for (const s of t.cssRules) e += s.cssText;
   return ct(e);
@@ -121,8 +121,8 @@ let y = class extends HTMLElement {
     const e = [];
     if (Array.isArray(t)) {
       const s = new Set(t.flat(1 / 0).reverse());
-      for (const r of s) e.unshift(G(r));
-    } else t !== void 0 && e.push(G(t));
+      for (const r of s) e.unshift(F(r));
+    } else t !== void 0 && e.push(F(t));
     return e;
   }
   static _$Eu(t, e) {
@@ -281,8 +281,8 @@ class U {
     for (; (r = v.nextNode()) !== null && a.length < l; ) {
       if (r.nodeType === 1) {
         if (r.hasAttributes()) for (const h of r.getAttributeNames()) if (h.endsWith(rt)) {
-          const $ = d[n++], f = r.getAttribute(h).split(_), M = /([.?@])?(.*)/.exec($);
-          a.push({ type: 1, index: o, name: M[2], strings: f, ctor: M[1] === "." ? xt : M[1] === "?" ? Ct : M[1] === "@" ? Pt : R }), r.removeAttribute(h);
+          const $ = d[n++], f = r.getAttribute(h).split(_), H = /([.?@])?(.*)/.exec($);
+          a.push({ type: 1, index: o, name: H[2], strings: f, ctor: H[1] === "." ? xt : H[1] === "?" ? Ct : H[1] === "@" ? Pt : R }), r.removeAttribute(h);
         } else h.startsWith(_) && (a.push({ type: 6, index: o }), r.removeAttribute(h));
         if (nt.test(r.tagName)) {
           const h = r.textContent.split(_), $ = h.length - 1;
@@ -474,7 +474,7 @@ const Ot = (i, t, e) => {
   }
   return r._$AI(i), r;
 };
-const W = globalThis;
+const G = globalThis;
 class x extends y {
   constructor() {
     super(...arguments), this.renderOptions = { host: this }, this._$Do = void 0;
@@ -497,11 +497,11 @@ class x extends y {
     return A;
   }
 }
-x._$litElement$ = !0, x.finalized = !0, W.litElementHydrateSupport?.({ LitElement: x });
-const Mt = W.litElementPolyfillSupport;
-Mt?.({ LitElement: x });
-(W.litElementVersions ??= []).push("4.2.2");
-const Ht = (i) => (t, e) => {
+x._$litElement$ = !0, x.finalized = !0, G.litElementHydrateSupport?.({ LitElement: x });
+const Ht = G.litElementPolyfillSupport;
+Ht?.({ LitElement: x });
+(G.litElementVersions ??= []).push("4.2.2");
+const Mt = (i) => (t, e) => {
   e !== void 0 ? e.addInitializer(() => {
     customElements.define(i, t);
   }) : customElements.define(i, t);
@@ -578,7 +578,7 @@ let m = class extends lt(x) {
   }
   render() {
     return p`
-            <div class="prs-dashboard">
+            <div class="githubissues-dashboard">
                 <div class="header">
                     <h1>
                         <umb-icon name="icon-lab"></umb-icon>
@@ -698,7 +698,7 @@ m.styles = ut`
             padding: var(--uui-size-space-5);
         }
 
-        .prs-dashboard {
+        .githubissues-dashboard {
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -844,11 +844,11 @@ O([
   D()
 ], m.prototype, "_filter", 2);
 m = O([
-  Ht("githubissues-dashboard")
+  Mt("our-githubissues-dashboard")
 ], m);
 const Vt = m;
 export {
-  m as PRsDashboardElement,
+  m as GitHubIssuesDashboardElement,
   Vt as default
 };
 //# sourceMappingURL=dashboard.js.map

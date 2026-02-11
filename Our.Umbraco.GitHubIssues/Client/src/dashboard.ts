@@ -25,8 +25,8 @@ interface Issue {
     isUpForGrabs: boolean;
 }
 
-@customElement('githubissues-dashboard')
-export class PRsDashboardElement extends UmbElementMixin(LitElement) {
+@customElement('our-githubissues-dashboard')
+export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
     @state()
     private _issues: Issue[] = [];
 
@@ -91,7 +91,7 @@ export class PRsDashboardElement extends UmbElementMixin(LitElement) {
 
     render() {
         return html`
-            <div class="prs-dashboard">
+            <div class="githubissues-dashboard">
                 <div class="header">
                     <h1>
                         <umb-icon name="icon-lab"></umb-icon>
@@ -225,7 +225,7 @@ export class PRsDashboardElement extends UmbElementMixin(LitElement) {
             padding: var(--uui-size-space-5);
         }
 
-        .prs-dashboard {
+        .githubissues-dashboard {
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -360,10 +360,10 @@ export class PRsDashboardElement extends UmbElementMixin(LitElement) {
     `;
 }
 
-export default PRsDashboardElement;
+export default GitHubIssuesDashboardElement;
 
 declare global {
     interface HTMLElementTagNameMap {
-        'prs-dashboard': PRsDashboardElement;
+        'our-githubissues-dashboard': GitHubIssuesDashboardElement;
     }
 }
