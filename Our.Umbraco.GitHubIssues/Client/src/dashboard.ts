@@ -2,6 +2,8 @@ import { LitElement, html, css, nothing } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api';
 import { UMB_AUTH_CONTEXT } from '@umbraco-cms/backoffice/auth';
+import { unsafeHTML } from "lit/directives/unsafe-html.js";
+
 interface Issue {
     id: number;
     number: number;
@@ -39,6 +41,13 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
     @state()
     private _filter: 'all' | 'up-for-grabs' = 'all';
 
+    @state()
+    private _currentPage = 1;
+
+    @state()
+    private _pageSize = 15;
+
+
     connectedCallback() {
         super.connectedCallback();
         this._loadIssues();
@@ -67,6 +76,7 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
             }
 
             this._issues = await response.json();
+            this._currentPage = 1;
         } catch (error) {
             this._error = error instanceof Error ? error.message : 'An error occurred';
             console.error('Error loading issues:', error);
@@ -87,6 +97,57 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
             month: 'short',
             day: 'numeric'
         });
+    }
+
+    private get _totalPages() {
+        return Math.ceil(this._issues.length / this._pageSize);
+    }
+
+    private get _pagedIssues() {
+        const start = (this._currentPage - 1) * this._pageSize;
+        return this._issues.slice(start, start + this._pageSize);
+    }
+
+    private _goToPage(page: number) {
+        if (page < 1 || page > this._totalPages) return;
+        this._currentPage = page;
+    }
+
+    private _renderMarkdownLite(markdown: string): string {
+
+        let htmlText = markdown;
+
+        // Escape HTML
+        htmlText = htmlText
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+
+        // Headings
+        htmlText = htmlText.replace(/^###### (.*$)/gim, "<h6>$1</h6>");
+        htmlText = htmlText.replace(/^##### (.*$)/gim, "<h5>$1</h5>");
+        htmlText = htmlText.replace(/^#### (.*$)/gim, "<h4>$1</h4>");
+        htmlText = htmlText.replace(/^### (.*$)/gim, "<h3>$1</h3>");
+        htmlText = htmlText.replace(/^## (.*$)/gim, "<h2>$1</h2>");
+        htmlText = htmlText.replace(/^# (.*$)/gim, "<h1>$1</h1>");
+
+        // Bold & Italic
+        htmlText = htmlText.replace(/\*\*(.*?)\*\*/gim, "<strong>$1</strong>");
+        htmlText = htmlText.replace(/\*(.*?)\*/gim, "<em>$1</em>");
+
+        // Inline code
+        htmlText = htmlText.replace(/`(.*?)`/gim, "<code>$1</code>");
+
+        // Links
+        htmlText = htmlText.replace(
+            /\[(.*?)\]\((.*?)\)/gim,
+            `<a href="$2" target="_blank">$1</a>`
+        );
+
+        // Line breaks
+        htmlText = htmlText.replace(/\n/g, "<br />");
+
+        return htmlText;
     }
 
     render() {
@@ -159,7 +220,28 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
 
         return html`
             <div class="issues-list">
-                ${this._issues.map(issue => this._renderIssue(issue))}
+                ${this._pagedIssues.map(issue => this._renderIssue(issue))}
+            </div>
+            <div class="pagination">
+                <uui-button
+                    look="outline"
+                    ?disabled=${this._currentPage === 1}
+                    @click=${() => this._goToPage(this._currentPage - 1)}
+                >
+                    Previous
+                </uui-button>
+
+                <span>
+                    Page ${this._currentPage} of ${this._totalPages}
+                </span>
+
+                <uui-button
+                    look="outline"
+                    ?disabled=${this._currentPage === this._totalPages}
+                    @click=${() => this._goToPage(this._currentPage + 1)}
+                >
+                    Next
+                </uui-button>
             </div>
         `;
     }
@@ -200,7 +282,7 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
 
                 ${issue.body ? html`
                     <div class="issue-body">
-                        ${issue.body.substring(0, 200)}${issue.body.length > 200 ? '...' : ''}
+                        ${unsafeHTML(this._renderMarkdownLite(issue.body))}
                     </div>
                 ` : nothing}
 
@@ -356,6 +438,48 @@ export class GitHubIssuesDashboardElement extends UmbElementMixin(LitElement) {
         .issue-actions {
             display: flex;
             gap: var(--uui-size-space-3);
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--uui-size-space-4);
+            margin-top: var(--uui-size-space-6);
+        }
+        .issue-body {
+            max-height: 160px;        /* adjust as you like */
+            overflow-y: auto;
+            padding: 8px;
+            background: #f6f6f6;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* Make code blocks readable */
+        .issue-body code {
+            background: #eaeaea;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        /* Headings spacing */
+        .issue-body h1,
+        .issue-body h2,
+        .issue-body h3,
+        .issue-body h4,
+        .issue-body h5,
+        .issue-body h6 {
+            margin: 6px 0;
+        }
+        .issue-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .issue-body::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
         }
     `;
 }
