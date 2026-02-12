@@ -1,0 +1,31 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AddOnPackagesRequiredForUmbracoCloud": [],
+  "AuthorDetails": {
+    "Name": "ZAAKS!",
+    "Url": "https://www.zaaks.nl/",
+    "ImageUrl": "https://www.zaaks.nl/media/jkdpi1c1/zaaks_umbraco__logo.png",
+    "SyncContributorsFromRepository": false
+  },
+  "Category": "Developer Tools",
+  "Description": "Our.Umbraco.GitHubIssues is a small Umbraco package that brings open GitHub issues from the Umbraco project right into your backoffice.",
+  "IsSubPackageOf": "",
+  "PackageType": "Package",
+  "PackagesByAuthor": [],
+  "RelatedPackages": [],
+  "LicenseTypes": [ "Free" ],
+  "Tags": [ "umbraco", "plugin", "package", "umbraco-marketplace" ],
+  "Title": "Umbraco GitHub Issues",
+  "VersionSpecificPackageIds": [
+    {
+      "UmbracoMajorVersion": 17,
+      "PackageId": "Our.Umbraco.GitHubIssues"
+    }
+  ],
+  "Screenshots": [
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/ZAAKS/Our.Umbraco.GitHubIssues/main/screenshot/githubissues.png",
+      "Caption": "Umbraco GitHub Issues"
+    }
+  ]
+}
