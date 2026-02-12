@@ -1,7 +1,6 @@
 # Our.Umbraco.GitHubIssues
 
 [![License](https://img.shields.io/github/license/ZAAKS/Our.Umbraco.GitHubIssues)](LICENSE)
-[![NuGet](https://img.shields.io/nuget/v/Our.Umbraco.GitHubIssues)](https://www.nuget.org/packages/Our.Umbraco.GitHubIssues/)
 [![GitHub stars](https://img.shields.io/github/stars/ZAAKS/Our.Umbraco.GitHubIssues?style=social)](https://github.com/ZAAKS/Our.Umbraco.GitHubIssues/stargazers)
 
 **Our.Umbraco.GitHubIssues** is a small Umbraco package that brings open GitHub issues from the Umbraco project right into your backoffice.  

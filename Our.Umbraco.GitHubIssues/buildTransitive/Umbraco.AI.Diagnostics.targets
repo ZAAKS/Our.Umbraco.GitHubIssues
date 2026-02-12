@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<!-- Existing App_Plugins logic (unchanged) -->
+	<PropertyGroup>
+		<GitHubIssuesPluginPath>
+			$(MSBuildThisFileDirectory)..\wwwroot\App_Plugins\Our.Umbraco.GitHubIssues\**\*.*
+		</GitHubIssuesPluginPath>
+	</PropertyGroup>
+	<Target Name="CopyGitHubIssuesAssets" BeforeTargets="BeforeBuild">
+		<ItemGroup>
+			<GitHubIssuesPluginFiles Include="$(GitHubIssuesPluginPath)" />
+		</ItemGroup>
+		<Message Text="Copying GitHub Issues plugin assets" Importance="high" />
+		<Copy
+		  SourceFiles="@(GitHubIssuesPluginFiles)"
+		  DestinationFiles="@(GitHubIssuesPluginFiles->'$(MSBuildProjectDirectory)\wwwroot\App_Plugins\Our.Umbraco.GitHubIssues\%(RecursiveDir)%(Filename)%(Extension)')"
+		  SkipUnchangedFiles="true" />
+	</Target>
+	<Target Name="ClearGitHubIssuesAssets" BeforeTargets="Clean">
+		<RemoveDir Directories="$(MSBuildProjectDirectory)\wwwroot\App_Plugins\Our.Umbraco.GitHubIssues\" />
+		<RemoveDir Directories="$(MSBuildProjectDirectory)\prompt\" />
+	</Target>
+</Project>

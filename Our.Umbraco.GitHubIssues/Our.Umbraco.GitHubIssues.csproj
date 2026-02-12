@@ -7,9 +7,18 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>Our.Umbraco.GitHubIssues</PackageId>
-    <Product>Our.Umbraco.GitHubIssues</Product>
-    <Title>Our.Umbraco.GitHubIssues</Title>
+	  <PackageId>Our.Umbraco.GitHubIssues</PackageId>
+	  <Product>Our.Umbraco.GitHubIssues</Product>
+	  <Title>Umbraco GitHub Issues</Title>
+	  <Authors>ZAAKS!</Authors>
+	  <Description>Our.Umbraco.GitHubIssues is a small Umbraco package that brings open GitHub issues from the Umbraco project right into your backoffice.</Description>
+	  <PackageProjectUrl>https://github.com/ZAAKS/Our.Umbraco.GitHubIssues</PackageProjectUrl>
+	  <RepositoryUrl>https://github.com/ZAAKS/Our.Umbraco.GitHubIssues</RepositoryUrl>
+	  <RepositoryType>git</RepositoryType>
+	  <PackageReadmeFile>README.md</PackageReadmeFile>
+	  <PackageTags>umbraco package;umbraco-marketplace</PackageTags>
+	  <Copyright>$([System.DateTime]::Now.Year) © $(Authors)</Copyright>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
 
@@ -19,7 +28,13 @@
     <PackageReference Include="Umbraco.Cms.Api.Common" Version="*" />
     <PackageReference Include="Umbraco.Cms.Api.Management" Version="*" />
   </ItemGroup>
-
+	
+	<!-- Optional folders -->
+	<ItemGroup>
+		<Folder Include="wwwroot\App_Plugins\Our.Umbraco.GitHubIssues\" />
+		<None Include="buildTransitive\**" Pack="true" PackagePath="buildTransitive" />
+	</ItemGroup>
+	
   <ItemGroup>
     <!-- Dont include the client folder as part of packaging nuget build -->
     <Content Remove="Client\**" />
@@ -27,9 +42,13 @@
     <!-- However make the Umbraco-package.json included for dotnet pack or nuget package and visible to the solution -->
     <None Include="Client\public\umbraco-package.json" Pack="false" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="readme.txt" Pack="true" PackagePath="/" />
+	</ItemGroup>
 </Project>
